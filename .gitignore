@@ -1,0 +1,6 @@
+.kitchen
+.librarian
+.tmp
+.DS_Store
+manifests/01_configuration.pp
+modules

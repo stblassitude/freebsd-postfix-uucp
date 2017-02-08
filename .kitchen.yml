@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+  network:
+    - ["private_network", {ip: "192.168.33.33"}]
+
+provisioner:
+  name: puppet_apply
+  manifest: ./
+  manifests_path: manifests
+  modules_path: modules
+  hiera_config_path: test/hiera.yaml
+  hiera_data_path: hieradata
+  require_chef_for_busser: false
+  custom_pre_install_command: which puppet || sudo sh -c 'pkg install -y puppet4; rm -rf /etc/puppet; ln -sf /usr/local/etc/puppet /etc/puppet'
+  puppet_debug: false
+
+platforms:
+  - name: freebsd
+    driver:
+      box: stblassitude/freebsd-11
+
+verifier:
+    ruby_bindir: '/usr/local/bin'
+
+suites:
+  - name: default
